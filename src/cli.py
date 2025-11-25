@@ -55,7 +55,7 @@ def scan(
             typer.echo(f"  {msg}", err=True)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
-        futures = {pool.submit(scan_user, github, u, None, verbose_log if verbose else None): u for u in scan_list}
+        futures = {pool.submit(scan_user, github, u, verbose_log if verbose else None): u for u in scan_list}
         for future in concurrent.futures.as_completed(futures):
             status, username, info, stats = future.result()
             if status == "FLAG":

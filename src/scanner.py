@@ -9,11 +9,10 @@ PATTERNS = [
 def scan_user(
     github: Github, 
     username: str, 
-    patterns: Optional[List[str]] = None, 
     verbose_callback: Optional[Callable[[str], None]] = None
 ) -> Tuple[str, str, Optional[str], dict]:
     """Scan a user. Returns (status, username, info, stats) where stats contains repo_count"""
-    patterns = patterns or PATTERNS
+    patterns = PATTERNS
     stats = {"repo_count": 0, "repos_with_description": 0}
     
     def log(msg: str):
