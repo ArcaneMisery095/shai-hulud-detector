@@ -30,6 +30,7 @@ def scan(
     org: Optional[str] = typer.Option(None, "--org", "-o", help="GitHub org to scan all members"),
     token: Optional[str] = typer.Option(None, "--token", "-t", help="GitHub token (or set GITHUB_TOKEN)"),
     workers: int = typer.Option(5, "--workers", "-w", help="Concurrent workers"),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Show verbose output including repo counts"),
 ):
     """
     Scan GitHub user(s) or org members for shai-hulud compromise.
@@ -49,16 +50,20 @@ def scan(
         typer.secho("Error: Provide usernames or --org", fg=typer.colors.YELLOW, err=True)
         raise typer.Exit(1)
 
+    def verbose_log(msg: str):
+        if verbose:
+            typer.echo(f"  {msg}", err=True)
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
-        futures = {pool.submit(scan_user, github, u): u for u in scan_list}
+        futures = {pool.submit(scan_user, github, u, None, verbose_log if verbose else None): u for u in scan_list}
         for future in concurrent.futures.as_completed(futures):
-            status, username, info = future.result()
+            status, username, info, stats = future.result()
             if status == "FLAG":
-                typer.secho(f"[FLAG] {username} compromised: {info}", fg=typer.colors.RED)
+                typer.secho(f"[FLAG] {username} compromised: {info}. Stats: {stats['repo_count']} repos scanned, {stats['repos_with_description']} with descriptions", fg=typer.colors.RED)
             elif status == "OKAY":
-                typer.secho(f"[OKAY] {username}", fg=typer.colors.GREEN)
+                typer.secho(f"[OKAY] {username} ({stats['repo_count']} repos, {stats['repos_with_description']} with descriptions)", fg=typer.colors.GREEN)
             else:
-                typer.secho(f"[ERROR] {username}: {info}", fg=typer.colors.YELLOW)
+                typer.secho(f"[ERROR] {username}: {info}. Stats: {stats.get('repo_count', 0)} repos scanned", fg=typer.colors.YELLOW)
 
 def main():
     app()
