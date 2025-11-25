@@ -1,56 +1,119 @@
 from github import Github, GithubException
-from typing import List, Tuple, Optional, Callable
+from typing import List, Optional, Callable, Set
+from src.common import SuspiciousResult, ScanResult, ScanStats, ScanStatus, SuspiciousReason
+import typer
 
 PATTERNS = [
     "Sha1-Hulud: The Second Coming.",
-    # Add more patterns here if needed
+    # Add more patterns here
 ]
 
+SUSPICIOUS_FILES = [
+    'actionsSecrets.json',
+    'secrets.json',
+    'env.json',
+    'credentials.json',
+    'contents.json',
+    'environment.json',
+    'cloud.json',
+    'truffleSecrets.json',
+]
+
+def search_repos_by_description(github: Github, username: str, log: Callable[[str], None]) -> List[SuspiciousResult]:
+    found: Set[SuspiciousResult] = set()
+    query_parts = [f'user:{username}'] + [f'description:"{p}"' for p in PATTERNS]
+    query = " OR ".join(query_parts)
+    log(f"Searching for description patterns in {username}...")
+    for repo in github.search_repositories(query=query):
+        found.add(SuspiciousResult(
+            name=repo.name,
+            html_url=repo.html_url,
+            reason=SuspiciousReason.DESCRIPTION_PATTERN
+        ))
+    return list(found)
+
+def search_suspicious_files(
+    github: Github,
+    username: str,
+    log: Callable[[str], None]
+) -> List[SuspiciousResult]:
+    found: Set[SuspiciousResult] = set()
+    for filename in SUSPICIOUS_FILES:
+        query = f'user:{username} filename:{filename}'
+        log(f"Searching for suspicious file: {filename} in {username}...")
+        for item in github.search_code(query=query):
+            found.add(SuspiciousResult(
+                name=item.repository.name,
+                html_url=item.repository.html_url,
+                file_path=item.path,
+                reason=SuspiciousReason.SUSPICIOUS_FILE
+            ))
+    return list(found)
+
 def scan_user(
-    github: Github, 
-    username: str, 
+    github: Github,
+    username: str,
     verbose_callback: Optional[Callable[[str], None]] = None
-) -> Tuple[str, str, Optional[str], dict]:
-    """Scan a user. Returns (status, username, info, stats) where stats contains repo_count"""
-    patterns = PATTERNS
-    stats = {"repo_count": 0, "repos_with_description": 0}
+) -> ScanResult:
+    stats = ScanStats()
+    suspicious_results: Set[SuspiciousResult] = set()
     
     def log(msg: str):
         if verbose_callback:
             verbose_callback(msg)
-    
+
+    log(f"Scanning user: {username}")
     try:
-        log(f"Starting scan for user: {username}")
-        
-        user = github.get_user(username)
-        repos = list(user.get_repos())
-        stats["repo_count"] = len(repos)
-        
-        log(f"Found {stats['repo_count']} repositories for {username}")
-        
-        for repo in repos:
-            if repo.description:
-                stats["repos_with_description"] += 1
-                log(f"  Checking repo: {repo.name} (description: {repo.description[:50]}...)")
-                
-                for p in patterns:
-                    if p in repo.description:
-                        log(f"  ⚠️  Pattern match found in {repo.name}: {p}")
-                        return ("FLAG", username, repo.html_url, stats)
-        
-        log(f"Scan complete for {username}: {stats['repo_count']} repos, {stats['repos_with_description']} with descriptions, no matches found")
-        
-        return ("OKAY", username, None, stats)
+        # Search for description patterns
+        desc_hits = search_repos_by_description(github, username, log)
+        suspicious_results.update(desc_hits)
+        stats.search_description_hits = len(desc_hits)
+        for hit in desc_hits:
+            log(f"  ⚠️ Description match in {hit.name}: {hit.html_url}")
+
+        # Search for suspicious files
+        file_hits = search_suspicious_files(github, username, log)
+        suspicious_results.update(file_hits)
+        stats.suspicious_files_found = len(file_hits)
+        for hit in file_hits:
+            log(f"  ⚠️ Suspicious file in {hit.name}: {hit.file_path}")
+
+        suspicious_list = list(suspicious_results)
+        if suspicious_list:
+            log(f"FLAG {username}: {len(suspicious_list)} suspicious results")
+            return ScanResult(
+                username=username,
+                status=ScanStatus.FLAG,
+                suspicious_results=suspicious_list,
+                stats=stats
+            )
+        else:
+            log(f"OKAY {username}: clean")
+            return ScanResult(
+                username=username,
+                status=ScanStatus.OKAY,
+                suspicious_results=[],
+                stats=stats
+            )
     except GithubException as e:
-        error_msg = str(e.data if hasattr(e, "data") else e)
-        log(f"GitHub API error for {username}: {error_msg}")
-        return ("ERROR", username, error_msg, stats)
+        error_msg = str(e)
+        log(f"ERROR {username}: GitHub API error - {error_msg}")
+        return ScanResult(
+            username=username,
+            status=ScanStatus.ERROR,
+            error=error_msg,
+            stats=stats
+        )
     except Exception as e:
         error_msg = str(e)
-        log(f"Unexpected error for {username}: {error_msg}")
-        return ("ERROR", username, error_msg, stats)
+        log(f"ERROR {username}: Unexpected - {error_msg}")
+        return ScanResult(
+            username=username,
+            status=ScanStatus.ERROR,
+            error=error_msg,
+            stats=stats
+        )
 
 def get_org_members(github: Github, org_name: str) -> List[str]:
-    """Return list of logins for all members in an org."""
     org = github.get_organization(org_name)
     return [member.login for member in org.get_members()]

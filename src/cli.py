@@ -4,6 +4,8 @@ import concurrent.futures
 
 from src.github_utils import get_github_client
 from src.scanner import scan_user, get_org_members
+from src.common import ScanResult
+from src.utils import format_scan_result
 
 app = typer.Typer(
     help="""
@@ -37,18 +39,19 @@ def scan(
     """
     github = get_github_client(token)
 
+    scan_list: List[str] = []
     if org:
         try:
             scan_list = get_org_members(github, org)
-            typer.echo(f"Scanning {len(scan_list)} org members in {org} ...")
+            typer.echo(f"Scanning {len(scan_list)} org members of '{org}' ...")
         except Exception as e:
-            typer.secho(f"Error getting org members: {e}", fg=typer.colors.YELLOW, err=True)
-            raise typer.Exit(1)
+            typer.secho(f"Error getting org members: {e}", fg=typer.colors.RED, err=True)
+            raise typer.Abort()
     elif usernames:
         scan_list = usernames
-    else:
-        typer.secho("Error: Provide usernames or --org", fg=typer.colors.YELLOW, err=True)
-        raise typer.Exit(1)
+    if not scan_list:
+        typer.secho("You must specify at least one GitHub username OR an organization with --org.", fg=typer.colors.RED, err=True)
+        raise typer.Abort()
 
     def verbose_log(msg: str):
         if verbose:
@@ -57,13 +60,8 @@ def scan(
     with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
         futures = {pool.submit(scan_user, github, u, verbose_log if verbose else None): u for u in scan_list}
         for future in concurrent.futures.as_completed(futures):
-            status, username, info, stats = future.result()
-            if status == "FLAG":
-                typer.secho(f"[FLAG] {username} compromised: {info}. Stats: {stats['repo_count']} repos scanned, {stats['repos_with_description']} with descriptions", fg=typer.colors.RED)
-            elif status == "OKAY":
-                typer.secho(f"[OKAY] {username} ({stats['repo_count']} repos, {stats['repos_with_description']} with descriptions)", fg=typer.colors.GREEN)
-            else:
-                typer.secho(f"[ERROR] {username}: {info}. Stats: {stats.get('repo_count', 0)} repos scanned", fg=typer.colors.YELLOW)
+            result: ScanResult = future.result()
+            format_scan_result(result)
 
 def main():
     app()

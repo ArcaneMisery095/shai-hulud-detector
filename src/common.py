@@ -7,11 +7,15 @@ class ScanStatus(StrEnum):
     FLAG = "FLAG"
     ERROR = "ERROR"
 
-@dataclass
-class SuspiciousRepo:
+class SuspiciousReason(StrEnum):
+    DESCRIPTION_PATTERN = "DESCRIPTION_PATTERN"
+    SUSPICIOUS_FILE = "SUSPICIOUS_FILE"
+
+@dataclass(frozen=True)
+class SuspiciousResult:
     name: str
     html_url: str
-    reason: str
+    reason: SuspiciousReason
     file_path: Optional[str] = None
 
 @dataclass
@@ -23,6 +27,6 @@ class ScanStats:
 class ScanResult:
     username: str
     status: ScanStatus = field(default=ScanStatus.OKAY)
-    suspicious_repos: List[SuspiciousRepo] = field(default_factory=list)
+    suspicious_results: List[SuspiciousResult] = field(default_factory=list)
     stats: ScanStats = field(default_factory=ScanStats)
     error: Optional[str] = None
