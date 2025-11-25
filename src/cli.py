@@ -5,9 +5,26 @@ import concurrent.futures
 from src.github_utils import get_github_client
 from src.scanner import scan_user, get_org_members
 
-app = typer.Typer()
+app = typer.Typer(
+    help="""
+    Shai Hulud Detector
 
-@app.command()
+    A CLI tool to scan GitHub users and organizations for shai-hulud compromise detection.
+    """,
+    invoke_without_command=True,
+    no_args_is_help=True,
+)
+
+@app.callback(invoke_without_command=True)
+def main(ctx: typer.Context):
+    """
+    Welcome to Shai-Hulud — the worm that detects worms.
+    """
+    if ctx.invoked_subcommand is None:
+        typer.echo(ctx.get_help())
+        raise typer.Exit()
+
+@app.command(no_args_is_help=True)
 def scan(
     usernames: List[str] = typer.Argument(None, help="GitHub usernames to scan"),
     org: Optional[str] = typer.Option(None, "--org", "-o", help="GitHub org to scan all members"),
