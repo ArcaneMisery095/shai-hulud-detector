@@ -2,7 +2,9 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)
-![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
+[![PyPI](https://img.shields.io/pypi/v/shai-hulud-detector)](https://pypi.org/project/shai-hulud-detector/)
+
+
 
 A CLI tool to detect potential Shai Hulud npm-worm compromises in GitHub users and organizations.
 
@@ -31,72 +33,62 @@ This tool scans for known indicators of compromise (IOCs), including:
 ## Requirements
 
 - Python 3.11+
-- uv package manager (https://docs.astral.sh/uv/)
 - GitHub Personal Access Token (https://github.com/settings/tokens)
 
 ## Installation
 
-### Clone the repository
+Install directly from PyPI:
 
 ```bash
-git clone https://github.com/ysskrishna/shai-hulud-detector.git
-cd shai-hulud-detector
+pip install shai-hulud-detector
 ```
 
-### Install dependencies
+## Authentication
 
-```bash
-uv sync
-```
-
-### Authentication Options
-
-Environment variable (recommended):
+Set your GitHub token as an environment variable (recommended):
 
 ```bash
 export GITHUB_TOKEN=<GITHUB_TOKEN_HERE>
-uv run python main.py scan <USERNAME_HERE>
 ```
 
-Command-line flag:
-```bash
-uv run python main.py scan <USERNAME_HERE> --token <GITHUB_TOKEN_HERE>
-```
-
-If omitted, the tool exits with a clear warning.
-
+Or pass it via command-line flag (see Usage section below). If omitted, the tool exits with a clear warning.
 
 ## Usage
 
 ### Scan one or more users
 
 ```bash
-uv run python main.py scan <USERNAME_HERE>
-uv run python main.py scan <USERNAME_HERE1> <USERNAME_HERE2> <USERNAME_HERE3>
+shai-hulud-detector scan <USERNAME_HERE>
+shai-hulud-detector scan <USERNAME_HERE1> <USERNAME_HERE2> <USERNAME_HERE3>
 ```
 
 ### Scan all members of an organization
 
 ```bash
-uv run python main.py scan --org <ORGANIZATION_NAME_HERE>
+shai-hulud-detector scan --org <ORGANIZATION_NAME_HERE>
 ```
 
+### Authentication via command-line
+
+```bash
+shai-hulud-detector scan <USERNAME_HERE> --token <GITHUB_TOKEN_HERE>
+```
 
 ### Help
 ```bash
-uv run python main.py scan --help 
+shai-hulud-detector scan --help 
 ``` 
 
 ### Parallelism
 
 Set concurrency (default 5):
 ```bash
-uv run python main.py scan --org <ORGANIZATION_NAME_HERE> --workers 10
+shai-hulud-detector scan --org <ORGANIZATION_NAME_HERE> --workers 10
 ```
 
 ### Verbose Output
 ```bash
-uv run python main.py scan <USERNAME_HERE> --verbose
+shai-hulud-detector scan <USERNAME_HERE> --verbose
 ```
 
 
@@ -127,6 +119,10 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 - GitHub: [@ysskrishna](https://github.com/ysskrishna)
 - LinkedIn: [ysskrishna](https://linkedin.com/in/ysskrishna)
+
+## Development
+
+For development setup, building, and contributing, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## Contributing
 
