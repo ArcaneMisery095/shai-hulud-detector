@@ -382,8 +382,8 @@ wheels = [
 
 [[package]]
 name = "shai-hulud-detector"
-version = "1.0.0"
-source = { virtual = "." }
+version = "1.0.2"
+source = { editable = "." }
 dependencies = [
     { name = "pygithub" },
     { name = "typer" },

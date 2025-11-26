@@ -124,6 +124,14 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 For development setup, building, and contributing, see [DEVELOPMENT.md](DEVELOPMENT.md).
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes and version history.
+
+## Releases
+
+For information on the release process and how to create new releases, see [RELEASE.md](RELEASE.md).
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
