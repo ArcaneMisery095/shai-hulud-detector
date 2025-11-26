@@ -9,7 +9,7 @@ This project uses **Git tags**, **uv**, **Trusted Publishing**, and **GitHub Act
 
    ```bash
    git tag -a vX.Y.Z -m "vX.Y.Z"
-   git push --tags
+   git push origin vX.Y.Z
    ```
 
 2. **GitHub Actions Workflow Runs**
@@ -46,7 +46,7 @@ This project uses **Git tags**, **uv**, **Trusted Publishing**, and **GitHub Act
 
    ```bash
    git tag -a vX.Y.Z -m "vX.Y.Z"
-   git push --tags
+   git push origin vX.Y.Z
    ```
 4. Wait for GitHub Actions to publish the release to PyPI.
 
