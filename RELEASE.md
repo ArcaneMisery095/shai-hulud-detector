@@ -50,6 +50,24 @@ This project uses **Git tags**, **uv**, **Trusted Publishing**, and **GitHub Act
    ```
 4. Wait for GitHub Actions to publish the release to PyPI.
 
+## 🗑️ Deleting Tags
+
+If you need to delete a tag (e.g., if you created it incorrectly):
+
+### Delete Tag Locally
+
+```bash
+git tag -d vX.Y.Z
+```
+
+### Delete Tag Remotely
+
+```bash
+git push origin --delete vX.Y.Z
+```
+
+**Note:** If the tag has already triggered a GitHub Actions workflow, you may need to handle the PyPI release separately if it was already published.
+
 ## 📝 Notes
 
 * Only pushes of tags matching `v*` trigger publishing.
