@@ -25,7 +25,30 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Topic :: Utilities"
 ]
-keywords = ["github", "security", "scanner", "compromise", "detection", "cli", "typer"]
+keywords = [
+    "github",
+    "security",
+    "scanner",
+    "cli",
+    "detection",
+    "compromise",
+    "npm-worm",
+    "supply-chain-attack",
+    "malware-detection",
+    "vulnerability-scanner",
+    "devsecops",
+    "security-tool",
+    "python-cli",
+    "npm",
+    "supply-chain-security",
+    "shai-hulud",
+    "threat-detection",
+    "repository-scanning",
+    "ioc",
+    "indicators-of-compromise",
+    "github-security",
+    "npm-security",
+]
 dependencies = [
   "typer>=0.9.0",
   "PyGithub>=2.1.0",

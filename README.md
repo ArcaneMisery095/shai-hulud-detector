@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)
 [![PyPI](https://img.shields.io/pypi/v/shai-hulud-detector)](https://pypi.org/project/shai-hulud-detector/)
-[![PyPI Downloads](https://static.pepy.tech/personalized-badge/shai-hulud-detector?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/shai-hulud-detector)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/shai-hulud-detector?period=total&units=INTERNATIONAL_SYSTEM&left_color=GREY&right_color=BLUE&left_text=downloads)](https://pepy.tech/projects/shai-hulud-detector)
 
 A CLI tool to detect potential Shai Hulud npm-worm compromises in GitHub users and organizations.
 
